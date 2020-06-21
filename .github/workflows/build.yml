@@ -1,0 +1,51 @@
+name: Build&Test
+# We need to finalize which branches we will
+on:
+  pull_request:
+    branches:
+      - "develop"
+      - "master"
+  push:
+    branches-ignore:
+      - "master"
+      - "develop"
+
+jobs:
+  build:
+    name: Install, Lint, Test and Build
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout Code
+      - name: Checkout
+        uses: actions/checkout@v2
+      # Get NodeJs
+      - name: Use Node 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+      # Install Dependencies
+      - name: Install dependencies
+        run: npm ci
+      # Lint the code
+      - name: Lint Project
+        run: npm run lint
+      # Build Project
+      - name: Build
+        run: npm run build
+      # Test Code
+      - name: Test
+        run: npm run test
+      # Archive to be deployed in next job
+      # Archive Code Coverage for later analysis
+      - name: Archive code coverage result
+        if: success()
+        uses: actions/upload-artifact@v1
+        with:
+          name: deploy_coverage
+          path: coverage
+      - name: Version Patch
+        if: github.event_name != 'pull_request'
+        run: |
+          git config --global user.email "validation-lib@pfcinc.us" 
+          git config --global user.name "validation-lib"
+          npm version patch
