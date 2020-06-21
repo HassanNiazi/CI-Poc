@@ -33,19 +33,19 @@ jobs:
       - name: Build
         run: npm run build
       # Test Code
-      - name: Test
-        run: npm run test
-      # Archive to be deployed in next job
-      # Archive Code Coverage for later analysis
-      - name: Archive code coverage result
-        if: success()
-        uses: actions/upload-artifact@v1
-        with:
-          name: deploy_coverage
-          path: coverage
-      - name: Version Patch
-        if: github.event_name != 'pull_request'
-        run: |
-          git config --global user.email "validation-lib@pfcinc.us" 
-          git config --global user.name "validation-lib"
-          npm version patch
+      # - name: Test
+      #   run: npm run test
+      # # Archive to be deployed in next job
+      # # Archive Code Coverage for later analysis
+      # - name: Archive code coverage result
+      #   if: success()
+      #   uses: actions/upload-artifact@v1
+      #   with:
+      #     name: deploy_coverage
+      #     path: coverage
+      # - name: Version Patch
+      #   if: github.event_name != 'pull_request'
+      #   run: |
+      #     git config --global user.email "validation-lib@pfcinc.us"
+      #     git config --global user.name "validation-lib"
+      #     npm version patch
