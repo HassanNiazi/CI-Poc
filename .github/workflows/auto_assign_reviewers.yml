@@ -6,3 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: kentaro-m/auto-assign-action@v1.1.1
+      - name: Add Labels
+        uses: actions-ecosystem/action-add-labels@v1.1.0
+        with:
+          github_token: ${{ secrets.github_token }}
+          labels: valet:merge

@@ -1,0 +1,33 @@
+name: Create Pull Request
+on:
+  push:
+    branches:
+      - "develop"
+      - "master"
+jobs:
+  createPullRequest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Auto Version Update
+          committer: Auto Version Update Action <noreply@github.com>
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          title: "[AVU] Auto Version Update"
+          body: |
+            This Pull request is created by AVR, it will be auto merged and should not be updated or reopened.
+          labels: valet:merge, Automated-pr
+          assignees: HassanNiazi
+          reviewers: HassanNiazi
+          team-reviewers: owners, maintainers
+          draft: false
+          branch: develop
+          request-to-parent: false
+      - name: Check outputs
+        run: |
+          echo "Pull Request Number - ${{ env.PULL_REQUEST_NUMBER }}"
+          echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
