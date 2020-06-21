@@ -15,6 +15,7 @@ jobs:
         uses: einaregilsson/build-number@v2
         with:
           token: ${{secrets.github_token}}
+          prefix: AVU-develop-
   create-branch:
     runs-on: ubuntu-latest
     steps:
@@ -23,13 +24,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          branch: AVU-develop-${{ needs.generate-build-number.outputs.build_number }}
+          branch: ${{ needs.generate-build-number.outputs.build_number }}
   create-pull-request:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: AVU-develop-${{ needs.generate-build-number.outputs.build_number }}
+          ref: ${{ needs.generate-build-number.outputs.build_number }}
       - run: npm version patch
       - name: Create Pull Request
         id: cpr
@@ -47,7 +48,7 @@ jobs:
           reviewers: HassanNiazi
           team-reviewers: owners, maintainers
           draft: false
-          branch: AVU-develop-${{ needs.generate-build-number.outputs.build_number }}
+          branch: ${{ needs.generate-build-number.outputs.build_number }}
           request-to-parent: false
       - name: Check outputs
         run: |
