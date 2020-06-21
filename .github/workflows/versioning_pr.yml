@@ -22,9 +22,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           branch: AVU-develop/${{ steps.buildnumber.outputs.build_number }}
-  create-pull-request:
-    runs-on: ubuntu-latest
-    steps:
       - uses: actions/checkout@v2
         with:
           ref: AVU-develop/${{ needs.generate-build-number.outputs.build_number }}
