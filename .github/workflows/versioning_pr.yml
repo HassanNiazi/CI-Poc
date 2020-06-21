@@ -24,7 +24,7 @@ jobs:
           branch: AVU-develop/${{ steps.buildnumber.outputs.build_number }}
       - uses: actions/checkout@v2
         with:
-          ref: AVU-develop/${{ needs.generate-build-number.outputs.build_number }}
+          ref: AVU-develop/${{ steps.buildnumber.outputs.build_number }}
       - name: Version Patch
         run: |
           git config --global user.email "validation-lib@pfcinc.us"
