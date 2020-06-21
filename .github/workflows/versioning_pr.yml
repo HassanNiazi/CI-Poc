@@ -16,15 +16,15 @@ jobs:
         with:
           token: ${{secrets.github_token}}
           prefix: AVU-develop-
-  create-branch:
-    runs-on: ubuntu-latest
-    steps:
+      # create-branch:
+      #   runs-on: ubuntu-latest
+      #   steps:
       - uses: actions/checkout@v2
       - uses: peterjgrainger/action-create-branch@v1.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          branch: ${{ needs.generate-build-number.outputs.build_number }}
+          branch: $BUILD_NUMBER
   create-pull-request:
     runs-on: ubuntu-latest
     steps:
