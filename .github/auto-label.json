@@ -1,3 +1,7 @@
 {
-  "valet:merge": "*"
+  "rules": {
+    "frontend": ["*.js", "*.css", "*.html"],
+    "backend": ["app/", "*.rb"],
+    "valet:merge": ["*.js", "*.css", "*.html"]
+  }
 }
