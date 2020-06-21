@@ -10,21 +10,21 @@ jobs:
     outputs:
       build_number: AVU-develop/${{ steps.buildnumber.outputs.build_number }}
     steps:
-      - name: Generate build number
-        id: buildnumber
-        uses: einaregilsson/build-number@v2
-        with:
-          token: ${{secrets.github_token}}
-          prefix: AVU-develop/
-      - uses: actions/checkout@v2
-      - uses: peterjgrainger/action-create-branch@v1.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          branch: AVU-develop/${{ steps.buildnumber.outputs.build_number }}
-      - uses: actions/checkout@v2
-        with:
-          ref: AVU-develop/${{ steps.buildnumber.outputs.build_number }}
+      # - name: Generate build number
+      #   id: buildnumber
+      #   uses: einaregilsson/build-number@v2
+      #   with:
+      #     token: ${{secrets.github_token}}
+      #     prefix: AVU-develop/
+      # - uses: actions/checkout@v2
+      # - uses: peterjgrainger/action-create-branch@v1.0.0
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     branch: AVU-develop/${{ steps.buildnumber.outputs.build_number }}
+      # - uses: actions/checkout@v2
+      #   with:
+      #     ref: AVU-develop/${{ steps.buildnumber.outputs.build_number }}
       - name: Version Patch
         run: |
           git config --global user.email "validation-lib@pfcinc.us"
@@ -46,7 +46,8 @@ jobs:
           reviewers: HassanNiazi
           team-reviewers: owners, maintainers
           draft: false
-          branch: ${{ needs.generate-build-number.outputs.build_number }}
+          branch: AVU-dev-2
+          branch-suffix: timestamp
           request-to-parent: false
       - name: Check outputs
         run: |
