@@ -15,7 +15,7 @@ jobs:
         uses: einaregilsson/build-number@v2
         with:
           token: ${{secrets.github_token}}
-          prefix: AVU-develop-
+          prefix: AVU-develop
       # create-branch:
       #   runs-on: ubuntu-latest
       #   steps:
@@ -24,7 +24,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          branch: $BUILD_NUMBER
+          branch: ${{ steps.buildnumber.outputs.build_number }}
   create-pull-request:
     runs-on: ubuntu-latest
     steps:
